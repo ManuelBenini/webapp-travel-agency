@@ -1,1 +1,49 @@
-﻿<h1>Pagina Index</h1>
+﻿@{
+    ViewData["Title"] = "Lista Viaggi";
+}
+
+@model List<PacchettoViaggio>
+
+@if(Model.Count == 0){
+    <div class="alert alert-primary" role="alert">
+        Non ci sono pacchetti viaggio disponibili.
+    </div>
+}else{
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Immagine</th>
+                <th scope="col">Titolo</th>
+                <th scope="col">Località</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Prezzo</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (PacchettoViaggio pacchettoViaggio in Model)
+            {
+                <tr>
+                    <th scope="row">@pacchettoViaggio.Id</th>
+                    <td> <img src="@pacchettoViaggio.Immagine" alt="Immagine del pacchetto viaggio"> </td>
+                    <td>@pacchettoViaggio.Titolo</td>
+                    <td>@pacchettoViaggio.Località</td>
+                    <td>@pacchettoViaggio.Descrizione</td>
+                    <td>@pacchettoViaggio.Prezzo&euro;</td>
+                    <td>
+                        <a href="@Url.Action("Show", "PacchettoViaggio", new {id = pacchettoViaggio.Id})" class="btn btn-primary">Mostra</a>
+                        <a href="@Url.Action("Edit", "PacchettoViaggio", new {id = pacchettoViaggio.Id})" class="btn btn-primary my-3">Modifica</a>
+                        <form asp-controller="PacchettoViaggio" asp-action="Delete" asp-route-id="@pacchettoViaggio.Id" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

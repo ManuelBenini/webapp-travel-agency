@@ -16,3 +16,12 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+img{
+    width: 100%;
+}
+
+.show-container img{
+    max-width: 1270px;
+    max-height: 650px;
+}

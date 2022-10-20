@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapp_travel_agency.Data;
 
@@ -10,9 +11,10 @@ using webapp_travel_agency.Data;
 namespace webapp_travel_agency.Migrations
 {
     [DbContext(typeof(AgencyContext))]
-    partial class AgencyContextModelSnapshot : ModelSnapshot
+    [Migration("20221020172749_ImageFieldAdded")]
+    partial class ImageFieldAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

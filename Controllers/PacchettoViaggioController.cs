@@ -14,7 +14,16 @@ namespace webapp_travel_agency.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<PacchettoViaggio> pacchettiViaggi = db.PacchettiViaggi.ToList();
+
+            return View(pacchettiViaggi);
+        }
+
+        public IActionResult Show(int id)
+        {
+            PacchettoViaggio pacchettoViaggio = db.PacchettiViaggi.Find(id);
+
+            return View(pacchettoViaggio);
         }
 
         public IActionResult Create()
@@ -34,7 +43,7 @@ namespace webapp_travel_agency.Controllers
             db.Add(model);
             db.SaveChanges();
 
-            return View(Index);
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -48,7 +57,7 @@ namespace webapp_travel_agency.Controllers
             }
             else
             {
-                return View();
+                return View(pacchettoViaggio);
             }
 
         }
@@ -67,12 +76,13 @@ namespace webapp_travel_agency.Controllers
 
             pacchettoViaggio.Titolo = model.Titolo;
             pacchettoViaggio.Località = model.Località;
+            pacchettoViaggio.Immagine = model.Immagine;
             pacchettoViaggio.Descrizione = model.Descrizione;
             pacchettoViaggio.Prezzo = model.Prezzo;
 
             db.SaveChanges();
 
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -90,7 +100,7 @@ namespace webapp_travel_agency.Controllers
                 db.PacchettiViaggi.Remove(pacchettoViaggio);
                 db.SaveChanges();
 
-                return View("Index");
+                return RedirectToAction("Index");
             }
 
         }

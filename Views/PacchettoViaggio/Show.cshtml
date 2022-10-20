@@ -1,1 +1,30 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Dettagli viaggio";
+}
+
+@model PacchettoViaggio
+
+<div class="container show-container">
+    <img src="@Model.Immagine" class="card-img-top" alt="Immagine pacchetto viaggio">
+
+    <div class="travel-feature d-flex justify-content-between">
+
+        <div class="travel-description">
+            <h5 class="card-title"><strong>@Model.Titolo</strong></h5>
+            <p class="card-text"><strong>Località:</strong> @Model.Località</p>
+            <p class="card-text"><strong>Descrizione:</strong> @Model.Descrizione</p>
+            <p class="card-text"><strong>Prezzo:</strong> @Model.Prezzo&euro;</p>
+        </div>
+
+        <div class="actions">
+            <a href="@Url.Action("Edit", "PacchettoViaggio", new {id = Model.Id})" class="btn btn-primary my-3">Modifica</a>
+            <form asp-controller="PacchettoViaggio" asp-action="Delete" asp-route-id="@Model.Id" method="post">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">Elimina</button>
+            </form>
+        </div>
+        
+    </div>
+    
+</div>
+
