@@ -75,7 +75,7 @@ namespace webapp_travel_agency.Controllers
             PacchettoViaggio pacchettoViaggio = db.PacchettiViaggi.Find(id);
 
             pacchettoViaggio.Titolo = model.Titolo;
-            pacchettoViaggio.Località = model.Località;
+            pacchettoViaggio.Localita = model.Localita;
             pacchettoViaggio.Immagine = model.Immagine;
             pacchettoViaggio.Descrizione = model.Descrizione;
             pacchettoViaggio.Prezzo = model.Prezzo;

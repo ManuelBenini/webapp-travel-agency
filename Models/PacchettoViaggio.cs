@@ -11,7 +11,7 @@ namespace webapp_travel_agency.Models
         public string Titolo { get; set; }
 
         [Required(ErrorMessage = "Il campo località è obbligatorio")]
-        public string Località { get; set; }
+        public string Localita { get; set; }
 
         [Required(ErrorMessage = "Il campo immagine è obbligatorio")]
         public string Immagine { get; set; }
