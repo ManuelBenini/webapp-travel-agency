@@ -9,14 +9,17 @@
     <div class="mb-3">
         <label for="titolo" class="form-label">Titolo:</label>
         <input type="text" asp-for="Titolo" class="form-control" id="titolo" placeholder="Inserire titolo">
+        <span asp-validation-for="Titolo" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label for="località" class="form-label">Località:</label>
         <input type="text" asp-for="Località" class="form-control" id="località" placeholder="Inserire località">
+        <span asp-validation-for="Località" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label for="immagine" class="form-label">Immagine:</label>
         <input type="text" asp-for="Immagine" class="form-control" id="immagine" placeholder="Inserire url immagine">
+        <span asp-validation-for="Immagine" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label for="descrizione" class="form-label">Descrizione:</label>
@@ -25,6 +28,7 @@
     <div class="mb-3">
         <label for="prezzo" class="form-label">Prezzo:</label>
         <input type="number" step="0.01" asp-for="Prezzo" class="form-control" id="prezzo" placeholder="Inserire prezzo">
+        <span asp-validation-for="Prezzo" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
