@@ -7,7 +7,7 @@ using webapp_travel_agency.Models;
 
 namespace webapp_travel_agency.Controllers.API
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class PacchettoViaggioController : ControllerBase
     {
@@ -25,30 +25,29 @@ namespace webapp_travel_agency.Controllers.API
             return Ok(db.PacchettiViaggi.ToList());
         }
 
-        //// GET api/<GuestsController>/5
-        //[HttpGet("{id}")]
-        //public IActionResult Get(int id)
-        //{
-        //    return Ok(db.PacchettiViaggi.Find(id));
-        //}
+        // GET api/<GuestsController>/5
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Ok(db.PacchettiViaggi.Find(id));
+        }
 
-        //// Restituisce Pacchetto con corrispondenza titolo o descrizione
-        //[HttpGet]
-        //public IActionResult CercaPacchettoViaggio(string userSearch)
-        //{
-        //    List<PacchettoViaggio> pacchettiViaggiTitolo = db.PacchettiViaggi.Where(p => p.Titolo.ToLower().Contains(userSearch.ToLower())).ToList();
-        //    if (pacchettiViaggi.Count > 0)
-        //    {
-        //        return Ok(pacchettiViaggi);
-        //    }
-        //    else
-        //    {
-        //        List<PacchettoViaggio> pacchettiViaggiDescrizione = db.PacchettiViaggi.Where(p => p.Descrizione.ToLower().Contains(userSearch.ToLower())).ToList();
-        //    }
-            
-
-        //    return Ok(pizzas);
-        //}
+        // Restituisce Pacchetto con corrispondenza titolo o descrizione
+        [HttpGet]
+        public IActionResult CercaPost(string userSearch)
+        {
+            List<PacchettoViaggio> pacchettiViaggi =
+                db.PacchettiViaggi.Where(p => p.Titolo.ToLower().Contains(userSearch.ToLower()) 
+                || p.Descrizione.ToLower().Contains(userSearch.ToLower())).ToList();
+            if (pacchettiViaggi.Count > 0)
+            {
+                return Ok(pacchettiViaggi);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         //// POST api/<GuestsController>
         //[HttpPost]

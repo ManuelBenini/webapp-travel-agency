@@ -3,7 +3,10 @@
 }
 
 <div class="container">
-    <h1>Benvenuto!</h1>
+    <h1>Benvenuto nella pagina dell'agenzia!</h1>
+
+    <label for="ricerca" class="form-label">Inserire termine da ricercare nei pacchetti viaggio:</label>
+    <input type="text" value="" id="pacchetto-da-cercare" placeholder="Inserire parola" />
 
     <div class="d-flex" id="card-container">
         @*Qui vengono stampate le card ricevute tramite chiamata API GET*@
@@ -15,12 +18,17 @@
 
 
 <script type="text/javascript">
-    axios.get("/api/PacchettoViaggio")
+
+    let pacchettoDaCercare = document.querySelector("#pacchetto-da-cercare");
+    let containerPacchetto = document.querySelector("#card-container");
+
+    //Restituisco tutti i pacchetti presenti nel sito
+    axios.get("/api/PacchettoViaggio/Get")
     .then(res =>{
         console.log("Lista pacchetti", res.data)
 
         res.data.forEach(pacchetto =>{
-            document.querySelector("#card-container").innerHTML +=
+            containerPacchetto.innerHTML +=
             `
                 <div class="card me-3" style="width: 18rem;">
                     <img src="${pacchetto.immagine}" style="height: 200px" class="card-img-top" alt="Immagine pacchetto di viaggio">
@@ -34,4 +42,45 @@
             `
         })
     })
+
+    let typingTimer;
+    const doneTypingInterval = 1000;
+
+    //Cerco i pacchetti in base all'input dell'utente dopo che ha terminato di scrivere
+    pacchettoDaCercare.addEventListener("keydown", function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval)
+    })
+
+    function doneTyping() {
+        axios.get("/api/PacchettoViaggio/CercaPost?userSearch=" + pacchettoDaCercare.value)
+        .then(res => {
+            console.log(res.data);
+            console.log(pacchettoDaCercare.value);
+            containerPacchetto.innerHTML = "";
+
+            if (res.data.length > 0) {
+                res.data.forEach(pacchetto => {
+                    containerPacchetto.innerHTML +=
+                    `
+                        <div class="card me-3" style="width: 18rem;">
+                            <img src="${pacchetto.immagine}" style="height: 200px" class="card-img-top" alt="Immagine pacchetto di viaggio">
+                            <div class="card-body">
+                                <h5 class="card-title"><strong>Titolo:</strong> ${pacchetto.titolo}</h5>
+                                <h5 class="card-title"><strong>Località:</strong> ${pacchetto.localita}</h5>
+                                <p class="card-text"><strong>Descrizione:</strong> ${pacchetto.descrizione}</p>
+                                <p class="card-text"><strong>Prezzo:</strong> ${pacchetto.prezzo}&euro;</p>
+                            </div>
+                        </div>
+                    `
+                })
+            }
+            else {
+                containerPacchetto.innerHTML += "Non ci sono pacchetti che corrispondono alla ricerca!"
+            }
+        })
+        .catch(e => {
+
+        })
+    }
 </script>
