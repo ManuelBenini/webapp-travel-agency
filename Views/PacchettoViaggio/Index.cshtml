@@ -35,7 +35,7 @@
                     <td>@pacchettoViaggio.Prezzo&euro;</td>
                     <td>
                         <a href="@Url.Action("Show", "PacchettoViaggio", new {id = pacchettoViaggio.Id})" class="btn btn-primary">Mostra</a>
-                        <a href="@Url.Action("Edit", "PacchettoViaggio", new {id = pacchettoViaggio.Id})" class="btn btn-primary my-3">Modifica</a>
+                        <a href="@Url.Action("Edit", "PacchettoViaggio", new {id = pacchettoViaggio.Id})" class="btn btn-success my-3">Modifica</a>
                         <form asp-controller="PacchettoViaggio" asp-action="Delete" asp-route-id="@pacchettoViaggio.Id" method="post">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="btn btn-danger">Elimina</button>
