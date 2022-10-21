@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 using webapp_travel_agency.Data;
 using webapp_travel_agency.Models;
 
@@ -106,6 +107,45 @@ namespace webapp_travel_agency.Controllers
                 return RedirectToAction("Index");
             }
 
+        }
+
+        public FileResult Esporta()
+        {
+            string[] columnNames = new string[] { "ID", "Titolo", "Descrizione", "Località", "Prezzo", "Immagine" };
+            List<PacchettoViaggio> viaggi = db.PacchettiViaggi.ToList();
+
+            string csv = string.Empty;
+
+            foreach (string columnName in columnNames)
+            {
+                csv += columnName + ',';
+            }
+
+            csv += "\r\n";
+
+            foreach (PacchettoViaggio pacchettoViaggio in viaggi)
+            {
+                csv += pacchettoViaggio.Id.ToString().Replace(",", ";") + ',';
+                csv += pacchettoViaggio.Titolo.Replace(",", ";") + ',';
+
+                if (pacchettoViaggio.Descrizione != null)
+                {
+                    csv += pacchettoViaggio.Descrizione.Replace(",", ";") + ',';
+                }
+                else
+                {
+                    csv += "" + ',';
+                }
+
+                csv += ',';
+                csv += pacchettoViaggio.Prezzo.ToString().Replace(",", ";") + ',';
+                csv += pacchettoViaggio.Immagine.Replace(",", ";") + ',';
+
+                csv += "\r\n";
+            }
+
+            byte[] bytes = Encoding.ASCII.GetBytes(csv);
+            return File(bytes, "text/csv", "PacchettoViaggio.csv");
         }
     }
 }
