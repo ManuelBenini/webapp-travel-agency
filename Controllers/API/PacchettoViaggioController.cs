@@ -18,14 +18,16 @@ namespace webapp_travel_agency.Controllers.API
             db = new();
         }
 
-        // GET: api/<GuestsController>
+        // GET: api/<PacchettoViaggioController>/Get
+        // Restituisce tutti i pacchetti viaggio
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(db.PacchettiViaggi.ToList());
         }
 
-        // GET api/<GuestsController>/5
+        // GET api/<PacchettoViaggioController>/Get/5
+        // Restituisce un pacchetto viaggio specifico
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -49,19 +51,19 @@ namespace webapp_travel_agency.Controllers.API
             }
         }
 
-        //// POST api/<GuestsController>
+        //// POST api/<PacchettoViaggioController>
         //[HttpPost]
         //public void Post([FromBody] string value)
         //{
         //}
 
-        //// PUT api/<GuestsController>/5
+        //// PUT api/<PacchettoViaggioController>/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody] string value)
         //{
         //}
 
-        //// DELETE api/<GuestsController>/5
+        //// DELETE api/<PacchettoViaggioController>/5
         //[HttpDelete("{id}")]
         //public void Delete(int id)
         //{

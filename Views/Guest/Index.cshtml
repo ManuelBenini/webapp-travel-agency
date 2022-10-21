@@ -1,9 +1,9 @@
 ﻿@{
-    ViewData["Title"] = "HomePage";
+    ViewData["Title"] = "Homepage";
 }
 
 <div class="container">
-    <h1>Benvenuto nella pagina dell'agenzia!</h1>
+    <h1>Benvenuto nella Homepage dell'agenzia!</h1>
 
     <label for="ricerca" class="form-label">Inserire termine da ricercare nei pacchetti viaggio:</label>
     <input type="text" value="" id="pacchetto-da-cercare" placeholder="Inserire parola" />
@@ -31,13 +31,15 @@
             containerPacchetto.innerHTML +=
             `
                 <div class="card me-3" style="width: 18rem;">
-                    <img src="${pacchetto.immagine}" style="height: 200px" class="card-img-top" alt="Immagine pacchetto di viaggio">
-                    <div class="card-body">
-                        <h5 class="card-title"><strong>Titolo:</strong> ${pacchetto.titolo}</h5>
-                        <h5 class="card-title"><strong>Località:</strong> ${pacchetto.localita}</h5>
-                        <p class="card-text"><strong>Descrizione:</strong> ${pacchetto.descrizione}</p>
-                        <p class="card-text"><strong>Prezzo:</strong> ${pacchetto.prezzo}&euro;</p>
-                    </div>
+                    <a href="Guest/Show/${pacchetto.id}">
+                        <img src="${pacchetto.immagine}" style="height: 200px" class="card-img-top" alt="Immagine pacchetto di viaggio">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Titolo:</strong> ${pacchetto.titolo}</h5>
+                            <h5 class="card-title"><strong>Località:</strong> ${pacchetto.localita}</h5>
+                            <p class="card-text"><strong>Descrizione:</strong> ${pacchetto.descrizione}</p>
+                            <p class="card-text"><strong>Prezzo:</strong> ${pacchetto.prezzo}&euro;</p>
+                        </div>
+                    </a>
                 </div>
             `
         })
@@ -64,13 +66,15 @@
                     containerPacchetto.innerHTML +=
                     `
                         <div class="card me-3" style="width: 18rem;">
-                            <img src="${pacchetto.immagine}" style="height: 200px" class="card-img-top" alt="Immagine pacchetto di viaggio">
-                            <div class="card-body">
-                                <h5 class="card-title"><strong>Titolo:</strong> ${pacchetto.titolo}</h5>
-                                <h5 class="card-title"><strong>Località:</strong> ${pacchetto.localita}</h5>
-                                <p class="card-text"><strong>Descrizione:</strong> ${pacchetto.descrizione}</p>
-                                <p class="card-text"><strong>Prezzo:</strong> ${pacchetto.prezzo}&euro;</p>
-                            </div>
+                            <a href="Guest/Show/${pacchetto.id}">
+                                <img src="${pacchetto.immagine}" style="height: 200px" class="card-img-top" alt="Immagine pacchetto di viaggio">
+                                <div class="card-body">
+                                    <h5 class="card-title"><strong>Titolo:</strong> ${pacchetto.titolo}</h5>
+                                    <h5 class="card-title"><strong>Località:</strong> ${pacchetto.localita}</h5>
+                                    <p class="card-text"><strong>Descrizione:</strong> ${pacchetto.descrizione}</p>
+                                    <p class="card-text"><strong>Prezzo:</strong> ${pacchetto.prezzo}&euro;</p>
+                                </div>
+                            </a>
                         </div>
                     `
                 })

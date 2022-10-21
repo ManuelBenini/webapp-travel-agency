@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Dettagli viaggio";
+}
+
+@model int
+
+<div class="container" id="show-container">
+    
+
+</div>
+
+<script type="text/javascript">
+    let pacchettoContainer = document.querySelector("#show-container");
+
+    axios.get("/api/PacchettoViaggio/Get/" + @Model)
+    .then(res =>{
+        console.log("Dettaglio Pacchetto Viaggio" , res.data);
+
+        pacchettoContainer.innerHTML +=
+        `
+            <img src="${res.data.immagine}" class="card-img-top" alt="Immagine pacchetto viaggio">
+
+            <div class="travel-feature d-flex justify-content-between">
+
+                <div class="travel-description">
+                    <h3><strong>${res.data.titolo}</strong></h3>
+                    <p><strong>Località:</strong> ${res.data.localita}</p>
+                    <p><strong>Descrizione:</strong> ${res.data.descrizione}</p>
+                    <p><strong>Prezzo:</strong> ${res.data.prezzo}&euro;</p>
+                </div>
+
+                <div class="actions">
+                    <a href="@Url.Action("Edit", "PacchettoViaggio", new {id = Model})" class="btn btn-primary my-3">Modifica</a>
+                    <form asp-controller="PacchettoViaggio" asp-action="Delete" asp-route-id="@Model" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
+                </div>
+
+            </div>
+        `
+    })
+    .catch(err =>{
+        console.log("Errore" , err);
+    })
+</script>
+
