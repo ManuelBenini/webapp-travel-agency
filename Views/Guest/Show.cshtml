@@ -12,7 +12,7 @@
                 <label for="email" class="form-label">Email:</label>
                 <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Inserire Email">
                 <div id="validazione-email">
-
+                    @*Genero degli SPAN nella chiamata POST AXIOS per validare il form*@
                 </div>
                 
             </div>
@@ -20,7 +20,7 @@
                 <label for="text" class="form-label">Testo del messaggio:</label>
                 <input type="text" class="form-control" id="testo" placeholder="Inserire testo">
                 <div id="validazione-testo">
-
+                    @*Genero degli SPAN nella chiamata POST AXIOS per validare il form*@
                 </div>
             </div>
 
@@ -72,23 +72,23 @@
         let email = document.querySelector('#email');
         let testo = document.querySelector('#testo');
 
-        //console.log(document.querySelector('#email').value);
-        //console.log(document.querySelector('#testo').value);
-        //console.log(window.location.pathname.split("/")[3]);
-
         axios.post("/api/Messaggio/Post", {
             email: email.value,
             testo: testo.value,
             pacchettoViaggioId: pacchettoViaggioId,
         })
         .then(res => {
+
+            //Se il form viene inviato correttamente, svuoto i due input ed i DIV con la validazione
             document.querySelector('#email').value = "";
             document.querySelector('#testo').value = "";
 
+            //Se esiste lo SPAN, svuoto il DIV
             if (document.querySelector('#email-errore')) {
                 document.querySelector("#validazione-email").innerHTML = "";
             }
 
+            //Se esiste lo SPAN, svuoto il DIV
             if (document.querySelector('#testo-errore')) {
                 document.querySelector("#validazione-testo").innerHTML = "";
             }
@@ -99,18 +99,24 @@
             console.log(err);
             alert('Dati non validi, riprovare');
 
+            //Se esiste lo SPAN, svuoto il DIV
             if (document.querySelector('#email-errore')) {
                 document.querySelector("#validazione-email").innerHTML = "";
             }
+
+            //Se esistono degli errori, li ciclo e li stampo come SPAN all'interno del DIV della validazione
             if (typeof err.response.data.errors.Email !== 'undefined' && err.response.data.errors.Email.length > 0) {
                 err.response.data.errors.Email.forEach(erroreEmail => {
                     document.querySelector("#validazione-email").innerHTML += ` <span id="email-errore" class="alert-danger">${erroreEmail}</span> `;
                 })
             }
-            
+
+            //Se esiste lo SPAN, svuoto il DIV
             if (document.querySelector('#testo-errore')) {
                 document.querySelector("#validazione-testo").innerHTML = "";
             }
+
+            //Se esistono degli errori, li ciclo e li stampo come SPAN all'interno del DIV della validazione
             if (typeof err.response.data.errors.Testo !== 'undefined' && err.response.data.errors.Testo.length > 0) {
                 err.response.data.errors.Testo.forEach(erroreTesto => {
                     document.querySelector("#validazione-testo").innerHTML += ` <span id="testo-errore" class="alert-danger">${erroreTesto}</span> `;
