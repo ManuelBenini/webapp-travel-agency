@@ -6,12 +6,33 @@
 
 <div class="container" id="show-container">
     
+    <div id="form-messaggio">
+        <form>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Inserire Email">
+                <div id="validazione-email">
 
+                </div>
+                
+            </div>
+            <div class="mb-3">
+                <label for="text" class="form-label">Testo del messaggio:</label>
+                <input type="text" class="form-control" id="testo" placeholder="Inserire testo">
+                <div id="validazione-testo">
+
+                </div>
+            </div>
+
+            <div onclick="sendMessage()" class="btn btn-primary" value="Invia">invia </div>
+        </form>
+    </div>
 </div>
 
 <script type="text/javascript">
     let pacchettoContainer = document.querySelector("#show-container");
 
+    //Chiamata API GET che restituisce i dettagli del pacchetto scelto
     axios.get("/api/PacchettoViaggio/Get/" + @Model)
     .then(res =>{
         console.log("Dettaglio Pacchetto Viaggio" , res.data);
@@ -43,5 +64,60 @@
     .catch(err =>{
         console.log("Errore" , err);
     })
+
+    //Chiamata API POST che manda un messaggio e lo collega al pacchetto scelto
+    function sendMessage() {
+
+        let pacchettoViaggioId = window.location.pathname.split("/")[3];
+        let email = document.querySelector('#email');
+        let testo = document.querySelector('#testo');
+
+        //console.log(document.querySelector('#email').value);
+        //console.log(document.querySelector('#testo').value);
+        //console.log(window.location.pathname.split("/")[3]);
+
+        axios.post("/api/Messaggio/Post", {
+            email: email.value,
+            testo: testo.value,
+            pacchettoViaggioId: pacchettoViaggioId,
+        })
+        .then(res => {
+            document.querySelector('#email').value = "";
+            document.querySelector('#testo').value = "";
+
+            if (document.querySelector('#email-errore')) {
+                document.querySelector("#validazione-email").innerHTML = "";
+            }
+
+            if (document.querySelector('#testo-errore')) {
+                document.querySelector("#validazione-testo").innerHTML = "";
+            }
+
+            alert('Messaggio inviato!');
+        })
+        .catch(err => {
+            console.log(err);
+            alert('Dati non validi, riprovare');
+
+            if (document.querySelector('#email-errore')) {
+                document.querySelector("#validazione-email").innerHTML = "";
+            }
+            if (typeof err.response.data.errors.Email !== 'undefined' && err.response.data.errors.Email.length > 0) {
+                err.response.data.errors.Email.forEach(erroreEmail => {
+                    document.querySelector("#validazione-email").innerHTML += ` <span id="email-errore" class="alert-danger">${erroreEmail}</span> `;
+                })
+            }
+            
+            if (document.querySelector('#testo-errore')) {
+                document.querySelector("#validazione-testo").innerHTML = "";
+            }
+            if (typeof err.response.data.errors.Testo !== 'undefined' && err.response.data.errors.Testo.length > 0) {
+                err.response.data.errors.Testo.forEach(erroreTesto => {
+                    document.querySelector("#validazione-testo").innerHTML += ` <span id="testo-errore" class="alert-danger">${erroreTesto}</span> `;
+                })
+            }
+            
+        })
+    }
 </script>
 

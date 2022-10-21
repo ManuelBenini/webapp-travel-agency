@@ -8,6 +8,7 @@ namespace webapp_travel_agency.Data
     public class AgencyContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<PacchettoViaggio> PacchettiViaggi { get; set; }
+        public DbSet<Messaggio> Messaggi { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

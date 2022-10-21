@@ -53,7 +53,7 @@ namespace webapp_travel_agency.Controllers.API
 
         //// POST api/<PacchettoViaggioController>
         //[HttpPost]
-        //public void Post([FromBody] string value)
+        //public void Post([FromBody] Messaggio formData)
         //{
         //}
 

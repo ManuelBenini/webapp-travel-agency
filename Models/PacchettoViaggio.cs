@@ -21,5 +21,7 @@ namespace webapp_travel_agency.Models
         [MoreThanZeroValidation]
         [Required(ErrorMessage = "il campo prezzo è obbligatorio")]
         public decimal? Prezzo { get; set; }
+
+        List<Messaggio> Messaggi { get; set; } = new();
     }
 }
