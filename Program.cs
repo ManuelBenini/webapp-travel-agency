@@ -1,4 +1,14 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using webapp_travel_agency.Data;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("AgencyContextConnection") ?? throw new InvalidOperationException("Connection string 'AgencyContextConnection' not found.");
+
+builder.Services.AddDbContext<AgencyContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<AgencyContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -18,10 +28,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Guest}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();
