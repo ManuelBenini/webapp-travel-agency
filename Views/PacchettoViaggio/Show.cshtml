@@ -11,10 +11,30 @@
     <div class="travel-feature d-flex justify-content-between">
 
         <div class="travel-description">
-            <h3><strong>@Model.Titolo</strong></h3>
-            <p><strong>Località:</strong> @Model.Localita</p>
-            <p><strong>Descrizione:</strong> @Model.Descrizione</p>
-            <p><strong>Prezzo:</strong> @Model.Prezzo&euro;</p>
+           <h3><strong>@Model.Titolo</strong></h3>
+           <p><strong>Località:</strong> @Model.Localita</p>
+           <p><strong>Descrizione:</strong> @Model.Descrizione</p>
+           <p><strong>Prezzo:</strong> @Model.Prezzo&euro;</p>
+           <p><strong>Messaggi:</strong></p>
+           @if (Model.Messaggi.Count == 0)
+           {
+               <ul>
+                   <li>Nessun messaggio</li>
+               </ul>
+           }
+           else
+           {
+                @foreach (Messaggio messaggio in Model.Messaggi)
+                {
+                    <ul>
+                        <li>Email: @messaggio.Email</li>
+                        <ul>
+                            <li>Testo: @messaggio.Testo</li>
+                        </ul>
+                    </ul>
+                }
+           }
+           
         </div>
 
         <div class="actions">

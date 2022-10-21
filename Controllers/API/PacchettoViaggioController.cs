@@ -36,7 +36,7 @@ namespace webapp_travel_agency.Controllers.API
 
         // Restituisce Pacchetto con corrispondenza titolo o descrizione
         [HttpGet]
-        public IActionResult CercaPost(string userSearch)
+        public IActionResult CercaPacchetto(string userSearch)
         {
             List<PacchettoViaggio> pacchettiViaggi =
                 db.PacchettiViaggi.Where(p => p.Titolo.ToLower().Contains(userSearch.ToLower()) 

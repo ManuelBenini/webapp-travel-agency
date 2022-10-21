@@ -55,7 +55,7 @@
     })
 
     function doneTyping() {
-        axios.get("/api/PacchettoViaggio/CercaPost?userSearch=" + pacchettoDaCercare.value)
+        axios.get("/api/PacchettoViaggio/CercaPacchetto?userSearch=" + pacchettoDaCercare.value)
         .then(res => {
             console.log(res.data);
             console.log(pacchettoDaCercare.value);

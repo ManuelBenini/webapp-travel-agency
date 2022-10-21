@@ -27,6 +27,7 @@
             <div onclick="sendMessage()" class="btn btn-primary" value="Invia">invia </div>
         </form>
     </div>
+
 </div>
 
 <script type="text/javascript">
@@ -37,29 +38,33 @@
     .then(res =>{
         console.log("Dettaglio Pacchetto Viaggio" , res.data);
 
-        pacchettoContainer.innerHTML +=
-        `
-            <img src="${res.data.immagine}" class="card-img-top" alt="Immagine pacchetto viaggio">
+            pacchettoContainer.insertAdjacentHTML('beforebegin', 
+            `
+                <img src="${res.data.immagine}" class="card-img-top" alt="Immagine pacchetto viaggio">
 
-            <div class="travel-feature d-flex justify-content-between">
+                <div class="travel-feature d-flex justify-content-between">
 
-                <div class="travel-description">
-                    <h3><strong>${res.data.titolo}</strong></h3>
-                    <p><strong>Località:</strong> ${res.data.localita}</p>
-                    <p><strong>Descrizione:</strong> ${res.data.descrizione}</p>
-                    <p><strong>Prezzo:</strong> ${res.data.prezzo}&euro;</p>
-                </div>
+                    <div class="travel-description">
+                        <h3><strong>${res.data.titolo}</strong></h3>
+                        <p><strong>Località:</strong> ${res.data.localita}</p>
+                        <p><strong>Descrizione:</strong> ${res.data.descrizione}</p>
+                        <p><strong>Prezzo:</strong> ${res.data.prezzo}&euro;</p>
+                    </div>
 
-                <div class="actions">
-                    <a href="@Url.Action("Edit", "PacchettoViaggio", new {id = Model})" class="btn btn-primary my-3">Modifica</a>
-                    <form asp-controller="PacchettoViaggio" asp-action="Delete" asp-route-id="@Model" method="post">
+                    <div class="actions">
+                        <a href="@Url.Action("Edit", "PacchettoViaggio", new {id = Model})" class="btn btn-primary my-3">Modifica</a>
+                        <form asp-controller="PacchettoViaggio" asp-action="Delete" asp-route-id="@Model" method="post">
                         @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-danger">Elimina</button>
-                    </form>
+                            <button type="submit" class="btn btn-danger">Elimina</button>
+                        </form>
+                    </div>
+
                 </div>
 
-            </div>
-        `
+                <h4>Chiedi informazioni:</h4>
+            `
+            );
+        
     })
     .catch(err =>{
         console.log("Errore" , err);

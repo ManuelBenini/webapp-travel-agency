@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using webapp_travel_agency.Data;
 using webapp_travel_agency.Models;
 
@@ -23,7 +24,7 @@ namespace webapp_travel_agency.Controllers
 
         public IActionResult Show(int id)
         {
-            PacchettoViaggio pacchettoViaggio = db.PacchettiViaggi.Find(id);
+            PacchettoViaggio pacchettoViaggio = db.PacchettiViaggi.Where(p => p.Id == id).Include("Messaggi").First();
 
             return View(pacchettoViaggio);
         }
